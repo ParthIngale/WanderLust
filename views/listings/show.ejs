@@ -1,0 +1,205 @@
+<!-- <% layout("/layouts/boilerplate") -%>
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="text-center mb-4"><%= listing.title %></h2>
+
+      <div class="card listing-card shadow-sm">
+        <img src="/images/<%= listing.image %>"
+          class="card-img-top"
+          alt="<%= listing.title %> image"
+          style="height: 300px; object-fit: cover;"
+          onerror="this.onerror=null;this.src='./images/img1.jpg'";
+        />
+
+        <div class="card-body">
+          <p class="text-muted"><%= listing.location %>, <%= listing.country %></p>
+          <p class="card-text"><%= listing.description %></p>
+          <h5 class="text-success mb-4">₹<%= listing.price.toLocaleString("en-IN") %> / night</h5>
+
+          <div class="d-flex justify-content-between">
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-outline-primary">Edit</a>
+
+            <form 
+              method="POST" 
+              action="/listings/<%= listing._id %>?_method=DELETE" 
+              onsubmit="return confirm('Are you sure you want to delete this listing?')"
+            >
+              <button class="btn btn-outline-danger">Delete</button>
+            </form>
+          </div>
+
+          <div class="col-8 offset-3 mb-3">
+            <hr>
+            <h4>Write a Review</h4>
+            <form id="reviewForm" 
+            action="/listings/<%= listing.id %>/reviews" 
+            method="POST" 
+            novalidate 
+            class="needs-validation">
+              <div class="mb-3 mt-3">
+                <label for="rating" class="form-label">Rating:</label>
+                <input 
+                type="range" 
+                min="1"
+                 max="5" 
+                 id="rating" 
+                  class="form-range"
+                 name="review[rating]">
+              </div>
+
+              <div  class="mb-3 mt-3">
+                <label for="comment" class="form-label">Comment:</label>
+                <textarea id="comment" 
+                name="review[comment]"
+                 rows="5" 
+                 cols="30"
+                  class="form-control"
+                  required
+                  ></textarea>
+                  <div class="invalid-feedback">
+                    Please submit a valid feedback
+                  </div>
+              </div>
+              <button class="btn btn-outline-dark">Submit</button>
+            </form>
+           <hr />
+<h4 class="mt-4 mb-3">Reviews</h4>
+
+<form id="reviewForm" action="/listings/<%= listing.id %>/reviews" method="POST" novalidate class="needs-validation">
+
+
+<div id="reviewsContainer" class="row row-cols-1 row-cols-md-2 g-4">
+  <% for (let review of listing.reviews) { %>
+    <div class="col">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="card-subtitle text-muted">Dwayne Smith</h6>
+            <span class="badge bg-warning text-dark"><%= review.rating %> ⭐</span>
+          </div>
+          <p class="card-text"><%= review.comment %></p>
+          <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+            <button class="btn btn-sm btn-dark">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  <% } %>
+</div>
+
+
+            </div>
+
+          </div>
+      </div>
+      
+    </div>
+  </div>
+</div> -->
+
+
+<% layout("/layouts/boilerplate") -%>
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="text-center mb-4"><%= listing.title %></h2>
+
+      <div class="card listing-card shadow-sm">
+        <img 
+  src="<%= listing.image %>" 
+  class="card-img-top"
+  style="height: 300px; object-fit: cover;"
+  alt="<%= listing.title %> image"
+  onerror="this.onerror=null;
+  this.src='https://source.unsplash.com/800x600/?apartment'" 
+/>
+
+
+        <div class="card-body">
+          <p class="text-muted"><%= listing.location %>, <%= listing.country %></p>
+          <p class="card-text"><%= listing.description %></p>
+          <h5 class="text-success mb-4">₹<%= listing.price.toLocaleString("en-IN") %> / night</h5>
+
+          <div class="d-flex justify-content-between">
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-outline-primary">Edit</a>
+
+            <form 
+              method="POST" 
+              action="/listings/<%= listing._id %>?_method=DELETE" 
+              onsubmit="return confirm('Are you sure you want to delete this listing?')"
+            >
+              <button class="btn btn-outline-danger">Delete</button>
+            </form>
+          </div>
+
+          <div class="col-8 offset-3 mb-3">
+            <hr>
+            <h4>Write a Review</h4>
+            <form id="reviewForm" 
+            action="/listings/<%= listing.id %>/reviews" 
+            method="POST" 
+            novalidate 
+            class="needs-validation">
+              <div class="mb-3 mt-3">
+                <label for="rating" class="form-label">Rating:</label>
+                <input 
+                type="range" 
+                min="1"
+                 max="5" 
+                 id="rating" 
+                  class="form-range"
+                 name="review[rating]">
+              </div>
+
+              <div  class="mb-3 mt-3">
+                <label for="comment" class="form-label">Comment:</label>
+                <textarea id="comment" 
+                name="review[comment]"
+                 rows="5" 
+                 cols="30"
+                  class="form-control"
+                  required
+                  ></textarea>
+                  <div class="invalid-feedback">
+                    Please submit a valid feedback
+                  </div>
+              </div>
+              <button class="btn btn-outline-dark">Submit</button>
+            </form>
+           <hr />
+<h4 class="mt-4 mb-3">Reviews</h4>
+
+<form id="reviewForm" action="/listings/<%= listing.id %>/reviews" method="POST" novalidate class="needs-validation">
+
+
+<div id="reviewsContainer" class="row row-cols-1 row-cols-md-2 g-4">
+  <% for (let review of listing.reviews) { %>
+    <div class="col">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="card-subtitle text-muted">Dwayne Smith</h6>
+            <span class="badge bg-warning text-dark"><%= review.rating %> ⭐</span>
+          </div>
+          <p class="card-text"><%= review.comment %></p>
+          <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+            <button class="btn btn-sm btn-dark">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  <% } %>
+</div>
+
+
+            </div>
+
+          </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
