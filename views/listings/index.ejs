@@ -1,4 +1,68 @@
- <% layout("/layouts/boilerplate") -%>
+<% layout("/layouts/boilerplate") -%> 
+
+<h3 class="text-center my-4">All Listings</h3>
+
+<div class="container">
+  <div class="row g-4">
+    <% for (let listing of allListings) { %>
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark">
+          <div class="card listing-card shadow-sm border-0 rounded-4 h-100">
+            <img 
+              src="<%= listing.image %>" 
+              class="card-img-top rounded-top-4" 
+              alt="listing_image" 
+              style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+              <h5 class="card-title mb-1"><%= listing.title %></h5>
+              <p class="card-text small text-muted">
+                ₹<%= listing.price.toLocaleString("en-IN") %> / night
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<!-- <% layout("/layouts/boilerplate") -%> 
+
+<% if (success && success.length > 0) { %>
+  <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+    <%= success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+
+<h3 class="text-center my-4">All Listings</h3>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+  <% for (let listing of allListings) { %>
+    <a href="/listings/<%= listing._id %>" class="listing-link">
+      <div class="card col listing-card">
+        <img 
+          src="<%= listing.image %>" 
+          class="card-img-top" 
+          alt="listing_image" 
+          style="height: 20rem;">
+        
+        <div class="card-img-overlay"></div>
+        
+        <div class="card-body">
+          <p class="card-text">
+            <b>₹<%= listing.price.toLocaleString("en-IN") %> / night</b>
+          </p>
+          <h5 class="card-title mb-1"><%= listing.title %></h5>
+        </div> 
+        
+      </div> 
+    </a>
+  <% } %>
+</div> -->
+
+ <!--  -->
+ <!-- <% layout("/layouts/boilerplate") -%>
 
 <h3 class="text-center my-4">All Listings</h3>
 
@@ -19,4 +83,4 @@
     <% } %>
   </div>
 </div>
- 
+ -->
