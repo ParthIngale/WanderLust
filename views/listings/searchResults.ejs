@@ -1,0 +1,32 @@
+<% layout("../layouts/boilerplate") -%>
+
+<div class="container mt-5">
+  <h3>Search Results for "<%= query %>"</h3>
+  <div class="row g-4 mt-4">
+    <% if (listings.length === 0) { %>
+      <div class="col-12">
+        <p class="text-muted">No listings found.</p>
+      </div>
+    <% } %>
+
+    <% listings.forEach(listing => { %>
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark">
+          <div class="card listing-card shadow-sm border-0 rounded-4 h-100">
+            <img 
+              src="<%= listing.image ? listing.image.url : '/images/default.jpg' %>" 
+              class="card-img-top rounded-top-4" 
+              alt="listing_image" 
+              style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+              <h5 class="card-title mb-1"><%= listing.title %></h5>
+              <p class="card-text small text-muted">
+                ₹<%= listing.price %> / night
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% }); %>
+  </div>
+</div>

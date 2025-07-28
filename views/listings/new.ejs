@@ -5,7 +5,9 @@
     <div class="col-md-8">
       <div class="card shadow-sm p-4">
         <h2 class="text-center mb-4">Create a New Listing</h2>
-        <form method="POST" action="/listings" novalidate class="needs-validation">
+        <form method="POST" action="/listings" 
+        novalidate class="needs-validation"
+         enctype="multipart/form-data">
       
 
           <!-- Title -->
@@ -38,29 +40,16 @@
             <div class="invalid-feedback">Description is required</div>
           </div>
 
-          <!-- Image -->
-          <!-- <div class="mb-3">
-            <label for="image" class="form-label">Image</label>
-            <input
-              type="text"
-              class="form-control"
-              id="image"
-              name="listing[image]"
-              placeholder="Enter image URL or use /images/img1.jpg"
-              value="/images/img1.jpg"
-            />
-            <div class="invalid-feedback">Image URL is required</div>
-          </div> -->
-             <!-- Image -->
+  <!-- Image 2 -->
           <div class="mb-3">
-  <label for="image" class="form-label">Image URL</label>
+  <label for="image" class="form-label">Upload Image</label>
   <input 
-  type="url" 
-  class="form-control" 
   name="listing[image]" 
-  id="image" 
-  placeholder="https://source.unsplash.com/800x600/?nature,house">
-</div>
+  type="file" 
+  class="form-control"
+  required 
+  />
+  </div>
 
           <div class="row">
             <!-- Price -->

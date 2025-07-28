@@ -5,7 +5,12 @@
     <div class="col-md-8">
       <h2 class="text-center mb-4">Edit Your Listing</h2>
 
-      <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation">
+      <form method="POST"
+       action="/listings/<%= listing._id %>?_method=PUT"
+        novalidate class="needs-validation"
+        class="needs-validation"
+        enctype="multipart/form-data"
+        >
         <!-- Title -->
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
@@ -22,12 +27,18 @@
           <div class="invalid-feedback">Please provide a description.</div>
         </div>
 
+        <!-- Preview -->
+          <div class="mb-3">
+            <p><b>Original Listing Image</b></p> <br>
+          <img src="<%= originalImageUrl %>" />
+        </div>
+
         <!-- Image -->
         <div class="mb-3">
-          <label for="image" class="form-label">Image URL</label>
-          <input type="text" class="form-control" id="image" name="listing[image]" value="<%= listing.image %>" placeholder="Use /images/img1.jpg or external URL" required />
+          <label for="image" class="form-label">Upload New Image</label>
+          <input type="file" class="form-control" id="image" name="image" 
+          placeholder="Use /images/img1.jpg or external URL"  />
           <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">Please enter a valid image path or URL.</div>
         </div>
 
         <!-- Price -->

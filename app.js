@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV != "production") {
+require('dotenv').config(); 
+}
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -21,8 +25,16 @@ const reviewRouter = require("./routes/review.js");
 //How to createa a database
 //Take URL from site
 //define the async function
+
 const Mongo_Url = "mongodb://127.0.0.1:27017/WanderLust";
+// const dBUrl = process.env.ATLASDB_URL;
+
 app.use(express.static("public"));
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+// app.use('/uploads', express.static('/uploads'));
+app.use('/uploads', express.static('uploads'));
+
+
 
 main()
     .then(() => {
@@ -34,6 +46,8 @@ main()
 
 async function main(){
     await mongoose.connect(Mongo_Url);
+    // await mongoose.connect(Mongo_Url);
+
 }
 
 app.set("view engine", "ejs");
@@ -55,9 +69,10 @@ const sessionOptions = {
     },
 };
 
-app.get("/", (req, res) => {
-    res.send("Hi, I am root");
-});
+// app.get("/", (req, res) => {
+//     res.send("Hi, I am root");
+// });
+
  
 app.use(session(sessionOptions));
 app.use(flash());
