@@ -11,21 +11,29 @@
       <!--  -->
 
      <div class="navbar-nav ms-auto">
-     <form class="d-flex align-items-center" role="search">
-     <div class="input-group">
-      <input 
-        class="form-control border-start-0 rounded-pill" 
-        type="search" 
-        placeholder="Search listings…" 
+      <!--  -->
+      <% if (!['/login', '/signup'].includes(currentPath)) { %>
+  <form class="d-flex align-items-center me-3" role="search" onsubmit="return handleSearchSubmit(event)">
+    <div class="position-relative">
+      <input
+        id="searchInput"
+        class="form-control rounded-pill"
+        type="search"
+        placeholder="Search listings…"
         aria-label="Search"
+        autocomplete="off"
         style="max-width: 250px;"
       />
-      <button class="btn btn-success rounded-pill ms-2 px-4" type="submit">
-        Search
-      </button>
+      <div id="suggestionBox"
+           class="position-absolute bg-white shadow rounded"
+           style="z-index: 1000; width: 100%; display: none;"></div>
     </div>
-  </form> 
-  
+    <button class="btn btn-success rounded-pill ms-2 px-4" type="submit">
+      Search
+    </button>
+  </form>
+<% } %>
+
 </div>
 
       <div class="navbar-nav ms-auto">
@@ -41,4 +49,57 @@
       </div>
     </div>
   </div>
+  <script>
+  const searchInput = document.getElementById('searchInput');
+  const suggestionBox = document.getElementById('suggestionBox');
+
+  searchInput?.addEventListener('input', async function () {
+    const query = this.value;
+    if (!query.trim()) {
+      suggestionBox.innerHTML = "";
+      suggestionBox.style.display = "none";
+      return;
+    }
+
+    const res = await fetch(`/listings/search/suggestions?q=${query}`);
+    const data = await res.json();
+
+    suggestionBox.innerHTML = "";
+    data.forEach(item => {
+      const option = document.createElement('div');
+      option.classList.add('search-suggestion');
+      option.textContent = item.title;
+      option.onclick = () => {
+        window.location.href = `/listings/${item._id}`;
+      };
+      suggestionBox.appendChild(option);
+    });
+
+    suggestionBox.style.display = data.length ? "block" : "none";
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!searchInput.contains(e.target)) {
+      suggestionBox.innerHTML = "";
+      suggestionBox.style.display = "none";
+    }
+  });
+
+  async function handleSearchSubmit(e) {
+    e.preventDefault();
+    const query = searchInput.value.trim();
+    if (!query) return;
+
+    const res = await fetch(`/listings/search/suggestions?q=${query}`);
+    const data = await res.json();
+
+    if (data.length > 0) {
+      window.location.href = `/listings/${data[0]._id}`;
+    } else {
+      alert("No matching listing found!");
+    }
+    return false;
+  }
+</script>
+
 </nav>

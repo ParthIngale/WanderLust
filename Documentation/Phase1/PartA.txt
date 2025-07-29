@@ -1,0 +1,29 @@
+Our first phase Part A begins here
+Here we have 
+1.Done Database Setup
+2.REST Apis for CRUD
+
+Then we have initiated with github i.e npm init -y
+Then, npm i express
+npm i ejs
+npm i mongoose
+npm nodemon
+
+Before conneting to Database
+Always start the MongoDB services and don't forget to start the MongoShell
+
+
+Listings:- It referes to type of places
+Here in our project, it can be a a flat,bunglow,villa,house. etc
+
+After creating listings folder
+We are creating our first model there and it will have our first schema
+
+
+Inside Init Folder all the initialization part is to be Done
+
+
+
+Today I have purchased a new laptop stand
+Being a boa is soo cool
+System.out.println("Amazing);

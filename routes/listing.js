@@ -9,6 +9,25 @@ const { storage } = require("../cloudConfig.js");
 const upload = multer({ storage });
 
 /// Search Route
+// router.get("/search", wrapAsync(async (req, res) => {
+//     const { q } = req.query;
+//     if (!q) {
+//         req.flash("error", "Please enter a search query.");
+//         return res.redirect("/listings");
+//     }
+
+//     const regex = new RegExp(escapeRegex(q), 'i'); // case-insensitive
+//     const listings = await Listing.find({
+//         $or: [
+//             { title: regex },
+//             { description: regex },
+//             { location: regex },
+//             { country: regex }
+//         ]
+//     });
+
+//     res.render("listings/searchResults", { listings, query: q });
+// }));
 router.get("/search", wrapAsync(async (req, res) => {
     const { q } = req.query;
     if (!q) {
@@ -16,7 +35,7 @@ router.get("/search", wrapAsync(async (req, res) => {
         return res.redirect("/listings");
     }
 
-    const regex = new RegExp(escapeRegex(q), 'i'); // case-insensitive
+    const regex = new RegExp(escapeRegex(q), 'i');
     const listings = await Listing.find({
         $or: [
             { title: regex },
@@ -26,8 +45,13 @@ router.get("/search", wrapAsync(async (req, res) => {
         ]
     });
 
+    if (listings.length === 1) {
+        return res.redirect(`/listings/${listings[0]._id}`);
+    }
+
     res.render("listings/searchResults", { listings, query: q });
 }));
+
 
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
@@ -55,3 +79,19 @@ router.put("/:id", isLoggedIn, isOwner, upload.single("image"),  validateListing
 router.delete("/:id", isLoggedIn, isOwner, wrapAsync(listingController.destroyListing));
 
 module.exports = router;
+
+
+// Autocomplete
+// GET /listings/search/suggestions?q=letter
+router.get('/search/suggestions', async (req, res) => {
+    const { q } = req.query;
+    try {
+        const listings = await Listing.find({
+            title: { $regex: q, $options: 'i' }
+        }).select('title _id').limit(10); // only needed fields
+
+        res.json(listings);
+    } catch (err) {
+        res.status(500).json({ error: "Search failed" });
+    }
+});

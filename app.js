@@ -28,6 +28,10 @@ const reviewRouter = require("./routes/review.js");
 
 const Mongo_Url = "mongodb://127.0.0.1:27017/WanderLust";
 // const dBUrl = process.env.ATLASDB_URL;
+app.use((req, res, next) => {
+  res.locals.currentPath = req.path;
+  next();
+});
 
 app.use(express.static("public"));
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
