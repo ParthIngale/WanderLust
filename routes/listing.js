@@ -25,7 +25,7 @@ const upload = multer({ storage });
 //             { country: regex }
 //         ]
 //     });
-
+ 
 //     res.render("listings/searchResults", { listings, query: q });
 // }));
 router.get("/search", wrapAsync(async (req, res) => {
@@ -64,7 +64,15 @@ router.get("/", wrapAsync(listingController.index));
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
 // Create Route
-router.post("/", isLoggedIn, validateListing, wrapAsync(listingController.createListing));
+// router.post("/", isLoggedIn, validateListing, wrapAsync(listingController.createListing));
+router.post(
+  "/",
+  isLoggedIn,
+  upload.single("listing[image]"),  // ⬅️ this line is essential
+  validateListing,
+  wrapAsync(listingController.createListing)
+);
+
 
 // Show Route
 router.get("/:id", wrapAsync(listingController.showListing));
