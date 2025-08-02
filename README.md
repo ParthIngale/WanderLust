@@ -4,7 +4,7 @@ A full-stack travel listing web application where users can discover destination
 
 ## Live Demo
 
-🌐 **[View Live App](https://wanderlust-behn.onrender.com/listings)**
+🌐 **[View Live App](https://wanderlust-behn.onrender.com)**
 
 ## Features
 
